@@ -6,7 +6,6 @@
 
 #include "vel/App.h"
 #include "vel/Material.h"
-#include "vel/Renderable.h"
 #include "vel/Actor.h"
 
 

@@ -10,7 +10,6 @@
 #include "vel/Log.h"
 
 #include "E1.h"
-//#include "E2.h"
 
 #include "glm/gtx/string_cast.hpp"
 
@@ -39,7 +38,6 @@ int main()
 
 	// Load Scenes into memory (multiple or just one), set one to active
 	app->addScene(std::move(std::make_unique<E1>()), true);
-	//app->addScene(std::move(std::make_unique<E2>()), true);
 
 	// Run the engine (blocking main thread)
 	app->execute();
