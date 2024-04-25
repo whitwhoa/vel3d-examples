@@ -37,12 +37,12 @@ void E1::load()
 
 
 	// Animated cube load
-	vel::Texture* glockTexture = this->loadTexture("glock", "data/textures/glock");
-	vel::Texture* glockColorTexture = this->loadTexture("glockColor", "data/textures/glock_color");
+	vel::Texture* g17Texture = this->loadTexture("g17", "data/textures/g17");
+	vel::Texture* g17ColorTexture = this->loadTexture("g17Color", "data/textures/g17_color");
 
-	vel::Material* glockMaterial = this->addMaterial("glockMaterial");
-	glockMaterial->addAnimatedTexture(glockTexture, 14.0f); // add texture to slot 0
-	glockMaterial->addAnimatedTexture(glockColorTexture, 14.0f);
+	vel::Material* g17Material = this->addMaterial("g17Material");
+	g17Material->addAnimatedTexture(g17Texture, 14.0f); // add texture to slot 0
+	g17Material->addAnimatedTexture(g17ColorTexture, 14.0f);
 
 	this->loadMesh("data/meshes/multi_texture_cube2.fbx");
 
@@ -51,8 +51,8 @@ void E1::load()
 	cubeActor2->setVisible(true);
 	cubeActor2->setShader(this->getShader("default"));
 	cubeActor2->setMesh(this->getMesh("Cube2"));
-	cubeActor2->setMaterial(*glockMaterial);
-	cubeActor2->setColor(glm::vec4(1.0f, 0.25f, 0.25f, 1.0f));
+	cubeActor2->setMaterial(*g17Material);
+	//cubeActor2->setColor(glm::vec4(1.0f, 0.25f, 0.25f, 1.0f));
 	cubeActor2->getTransform().setTranslation(glm::vec3(1.0f, 1.0f, -3.0f));
 	cubeActor2->getTransform().setRotation(90.0f, glm::vec3(0.0f,1.0f,0.0f));
 	
@@ -60,7 +60,7 @@ void E1::load()
 
 	// Multi-Textured mesh load
 	vel::Texture* stoneWall1Albedo = this->loadTexture("stoneWall1Albedo", "data/textures/stone_wall_1.png");
-	vel::Texture* concreteDiffuse = this->loadTexture("concreteDiffuse", "data/textures/rough_concrete.jpg");
+	vel::Texture* concreteDiffuse = this->loadTexture("concreteDiffuse", "data/textures/rough_concrete.png");
 	vel::Texture* gridDiffuse = this->loadTexture("gridDiffuse", "data/textures/defaults/grid.jpg");
 	
 	vel::Material* mapMaterial = this->addMaterial("mapMaterial");

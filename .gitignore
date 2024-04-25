@@ -8,19 +8,6 @@ external/nvapi/*
 
 imgui.ini
 
-data/fonts/*
-!data/fonts/.gitkeep
-
-data/meshes/*
-!data/meshes/.gitkeep
-
-data/textures/*
-!data/textures/defaults/
-!data/textures/defaults/*
-
-data/globalAssets
-
-src/xd327/*
 
 data/log.txt
 hooks
