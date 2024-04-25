@@ -1,0 +1,3 @@
+[submodule "src/vel3d"]
+	path = src/vel3d
+	url = https://github.com/whitwhoa/vel3d.git
