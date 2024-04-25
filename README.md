@@ -1,3 +1,3 @@
-# vel3d
+# vel3d Examples
 
-Simple 3d graphics api that allows you to get started drawing objects to a screen FAST
+Examples usage of vel3d graphics library
