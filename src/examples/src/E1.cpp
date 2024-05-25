@@ -130,16 +130,19 @@ void E1::load()
 	vel::Material* fpFriendScreenMaterial = this->addMaterial("fpFriendScreenMaterial");
 	fpFriendScreenMaterial->addTexture(&secondTestStageCamera->getRenderTarget()->texture);
 	
-	this->loadMesh("data/meshes/plane_16x9.fbx");
+	this->loadMesh("data/meshes/plane_16x9_inverted_uv_v_value.fbx");
 
 	vel::Actor* plane16x9Actor = fpTestStage->addActor("plane16x9Actor");
 	plane16x9Actor->setDynamic(false);
 	plane16x9Actor->setVisible(true);
-	plane16x9Actor->setShader(this->getShader("defaultInvertUV"));
+	//plane16x9Actor->setShader(this->getShader("defaultInvertUV"));
+	plane16x9Actor->setShader(this->getShader("default"));
 	plane16x9Actor->setMesh(this->getMesh("plane_16x9"));
 	plane16x9Actor->setMaterial(*fpFriendScreenMaterial);
 	plane16x9Actor->getTransform().setScale(glm::vec3(0.25f, 0.25f, 0.25f));
 	plane16x9Actor->getTransform().setTranslation(glm::vec3(0.9f, 0.465f, 0.0f));
+	//plane16x9Actor->getTransform().setRotation(180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	//plane16x9Actor->getTransform().appendRotation(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	
 
 	// Some sample text
