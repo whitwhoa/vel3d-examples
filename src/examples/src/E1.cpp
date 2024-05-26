@@ -62,7 +62,7 @@ void E1::load()
 	vel::Texture* concreteDiffuse = this->loadTexture("concreteDiffuse", "data/textures/rough_concrete.png");
 	vel::Texture* gridDiffuse = this->loadTexture("gridDiffuse", "data/textures/defaults/grid.jpg");
 	
-	vel::Material* mapMaterial = this->addMaterial("mapMaterial");
+	vel::DiffuseMaterial* mapMaterial = this->addDiffuseMaterial("mapMaterial");
 	mapMaterial->addTexture(gridDiffuse);
 	mapMaterial->addTexture(concreteDiffuse);
 	mapMaterial->addTexture(stoneWall1Albedo);
@@ -72,9 +72,8 @@ void E1::load()
 	vel::Actor* gridActor = testStage->addActor("gridActor");
 	gridActor->setDynamic(false);
 	gridActor->setVisible(true);
-	gridActor->setShader(this->getShader("default"));
 	gridActor->setMesh(this->getMesh("Grid"));
-	gridActor->setMaterial(*mapMaterial);
+	gridActor->setMaterial(mapMaterial);
 	gridActor->getTransform().setRotation(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	
 
