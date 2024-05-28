@@ -5,7 +5,8 @@
 #include "imgui/imgui.h"
 
 #include "vel/App.h"
-#include "vel/Material.h"
+//#include "vel/Material.h"
+#include "vel/Materials.h"
 #include "vel/Actor.h"
 
 
@@ -39,7 +40,7 @@ void E1::load()
 	vel::Texture* g17Texture = this->loadTexture("g17", "data/textures/g17");
 	vel::Texture* g17ColorTexture = this->loadTexture("g17Color", "data/textures/g17_color");
 
-	vel::Material* g17Material = this->addMaterial("g17Material");
+	vel::DiffuseAnimatedMaterial* g17Material = this->addDiffuseAnimatedMaterial("g17Material");
 	g17Material->addAnimatedTexture(g17Texture, 14.0f); // add texture to slot 0
 	g17Material->addAnimatedTexture(g17ColorTexture, 14.0f);
 
@@ -48,9 +49,8 @@ void E1::load()
 	vel::Actor* cubeActor2 = testStage->addActor("cubeActor2");
 	cubeActor2->setDynamic(true);
 	cubeActor2->setVisible(true);
-	cubeActor2->setShader(this->getShader("default"));
 	cubeActor2->setMesh(this->getMesh("Cube2"));
-	cubeActor2->setMaterial(*g17Material);
+	cubeActor2->setMaterial(g17Material);
 	//cubeActor2->setColor(glm::vec4(1.0f, 0.25f, 0.25f, 1.0f));
 	cubeActor2->getTransform().setTranslation(glm::vec3(1.0f, 1.0f, -3.0f));
 	cubeActor2->getTransform().setRotation(90.0f, glm::vec3(0.0f,1.0f,0.0f));
@@ -79,25 +79,24 @@ void E1::load()
 
 
 	// TRANSLUCENT CUBE LOAD
-	vel::Material* gridMaterial = this->addMaterial("gridMaterial");
+	vel::DiffuseMaterial* gridMaterial = this->addDiffuseMaterial("gridMaterial");
 	gridMaterial->addTexture(gridDiffuse);
+	gridMaterial->setColor(glm::vec4(1.0f, 0.25f, 0.25f, 0.25f));
 
 	this->loadMesh("data/meshes/cube.fbx");
 
 	vel::Actor* cubeActor = testStage->addActor("cubeActor");
 	cubeActor->setDynamic(false);
 	cubeActor->setVisible(true);
-	cubeActor->setShader(this->getShader("default"));
 	cubeActor->setMesh(this->getMesh("Cube"));
-	cubeActor->setMaterial(*gridMaterial);
-	cubeActor->setColor(glm::vec4(1.0f, 0.25f, 0.25f, 0.25f));
+	cubeActor->setMaterial(gridMaterial);
 	
 
 
-	// ANIMATED ACTOR LOAD
+	// SKINNED ACTOR LOAD
 	vel::Texture* lpaDiff = this->loadTexture("lpaDiff", "data/textures/low_poly_animated.jpg");
 
-	vel::Material* lpaMat = this->addMaterial("lpaMat");
+	vel::DiffuseSkinnedMaterial* lpaMat = this->addDiffuseSkinnedMaterial("lpaMat");
 	lpaMat->addTexture(lpaDiff);
 	
 	this->loadMesh("data/meshes/low_poly_animated.fbx");
@@ -105,9 +104,8 @@ void E1::load()
 	vel::Actor* lpaActor = testStage->addActor("lpaActor");
 	lpaActor->setDynamic(true);
 	lpaActor->setVisible(true);
-	lpaActor->setShader(this->getShader("defaultSkinned"));
 	lpaActor->setMesh(this->getMesh("character"));
-	lpaActor->setMaterial(*lpaMat);
+	lpaActor->setMaterial(lpaMat);
 	
 
 	vel::Armature* arm = testStage->addArmature(this->getArmature("Armature"), "walk", { "lpaActor" });
@@ -126,7 +124,7 @@ void E1::load()
 	vel::Stage* fpTestStage = this->addStage("fpTestStage");
 	fpTestStage->addCamera(fpTestStageCamera);
 
-	vel::Material* fpFriendScreenMaterial = this->addMaterial("fpFriendScreenMaterial");
+	vel::DiffuseMaterial* fpFriendScreenMaterial = this->addDiffuseMaterial("fpFriendScreenMaterial");
 	fpFriendScreenMaterial->addTexture(&secondTestStageCamera->getRenderTarget()->texture);
 	
 	this->loadMesh("data/meshes/plane_16x9_inverted_uv_v_value.fbx");
@@ -134,10 +132,8 @@ void E1::load()
 	vel::Actor* plane16x9Actor = fpTestStage->addActor("plane16x9Actor");
 	plane16x9Actor->setDynamic(false);
 	plane16x9Actor->setVisible(true);
-	//plane16x9Actor->setShader(this->getShader("defaultInvertUV"));
-	plane16x9Actor->setShader(this->getShader("default"));
 	plane16x9Actor->setMesh(this->getMesh("plane_16x9"));
-	plane16x9Actor->setMaterial(*fpFriendScreenMaterial);
+	plane16x9Actor->setMaterial(fpFriendScreenMaterial);
 	plane16x9Actor->getTransform().setScale(glm::vec3(0.25f, 0.25f, 0.25f));
 	plane16x9Actor->getTransform().setTranslation(glm::vec3(0.9f, 0.465f, 0.0f));
 	//plane16x9Actor->getTransform().setRotation(180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -169,6 +165,6 @@ void E1::immediateLoop(float frameTime, float renderLerpInterval)
 	this->fc->immediateUpdate(frameTime, renderLerpInterval);
 	
 	auto lightv = this->bt.update(frameTime);
-	this->getStage("testStage")->getActor("gridActor")->setColor(glm::vec4(lightv, 1.0f));
+	this->getStage("testStage")->getActor("gridActor")->getMaterial()->setColor(glm::vec4(lightv, 1.0f));
 
 }
