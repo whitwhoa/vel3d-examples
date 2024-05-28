@@ -1,7 +1,14 @@
 #version 450 core
-
 #extension GL_ARB_bindless_texture : require
 #extension GL_ARB_gpu_shader_int64 : require
+
+
+
+
+
+
+
+// TOP 10 lines are reserved in script compiler for version and extensions
 
 in vec2 TexCoords;
 in vec2 LMTexCoords;

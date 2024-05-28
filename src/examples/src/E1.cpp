@@ -82,6 +82,8 @@ void E1::load()
 	vel::DiffuseMaterial* gridMaterial = this->addDiffuseMaterial("gridMaterial");
 	gridMaterial->addTexture(gridDiffuse);
 	gridMaterial->setColor(glm::vec4(1.0f, 0.25f, 0.25f, 0.25f));
+	//vel::RGBAMaterial* gridMaterial = this->addRGBAMaterial("redRGBAMaterial");
+	//gridMaterial->setColor(glm::vec4(1.0f, 0.25f, 0.25f, 0.25f));
 
 	this->loadMesh("data/meshes/cube.fbx");
 

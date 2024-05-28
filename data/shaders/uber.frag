@@ -2,6 +2,14 @@
 #extension GL_ARB_bindless_texture : require
 #extension GL_ARB_gpu_shader_int64 : require
 
+
+
+
+
+
+
+// TOP 10 lines are reserved in script compiler for version and extensions
+
 in vec2 TexCoords;
 in vec2 LMTexCoords;
 flat in uint TexId;
@@ -59,22 +67,48 @@ void main()
 		FragColor = colorized * alpha;
 	#else
 		#ifdef USE_AMBIENT_CUBE
+	
 			vec3 ac_color = ambientCubeLight(Normal);
-			#ifdef USE_LIGHTMAP
-				vec3 calc_color = texture(tex[TexId], TexCoords).rgb * texture(lmt, LMTexCoords).rgb * ac_color * color.xyz;
+			
+			#ifdef RGBA_ONLY
+				vec3 calc_color = ac_color * color.xyz;
 			#else
 				vec3 calc_color = texture(tex[TexId], TexCoords).rgb * ac_color * color.xyz;
 			#endif
+			
 		#else
+			
 			#ifdef USE_LIGHTMAP
-				vec3 calc_color = texture(tex[TexId], TexCoords).rgb * texture(lmt, LMTexCoords).rgb * color.xyz;
+			
+				#ifdef RGBA_ONLY
+					vec3 calc_color = texture(lmt, LMTexCoords).rgb * color.xyz;
+				#else
+					vec3 calc_color = texture(tex[TexId], TexCoords).rgb * texture(lmt, LMTexCoords).rgb * color.xyz;
+				#endif
+				
 			#else
-				vec3 calc_color = texture(tex[TexId], TexCoords).rgb * color.xyz;
+				
+				#ifdef RGBA_ONLY
+					vec3 calc_color = color.xyz;
+				#else
+					vec3 calc_color = texture(tex[TexId], TexCoords).rgb * color.xyz;
+				#endif
+				
 			#endif
+			
 		#endif
 		
-		float alpha = texture(tex[TexId], TexCoords).a == 1 ? color.w : texture(tex[TexId], TexCoords).a * color.w;
+		
+		#ifdef RGBA_ONLY
+			float alpha = color.w;
+		#else
+			//float alpha = texture(tex[TexId], TexCoords).a == 1 ? color.w : texture(tex[TexId], TexCoords).a * color.w;
+			float alpha = texture(tex[TexId], TexCoords).a * color.w;
+		#endif
+		
+		
 		FragColor = vec4(calc_color, alpha);
+		
 	#endif
 
 	
