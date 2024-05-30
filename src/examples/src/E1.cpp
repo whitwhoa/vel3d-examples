@@ -46,11 +46,9 @@ void E1::load()
 
 	this->loadMesh("data/meshes/multi_texture_cube2.fbx");
 
-	vel::Actor* cubeActor2 = testStage->addActor("cubeActor2");
+	vel::Actor* cubeActor2 = testStage->addActor("cubeActor2", this->getMesh("Cube2"), g17Material);
 	cubeActor2->setDynamic(true);
 	cubeActor2->setVisible(true);
-	cubeActor2->setMesh(this->getMesh("Cube2"));
-	cubeActor2->setMaterial(g17Material);
 	//cubeActor2->setColor(glm::vec4(1.0f, 0.25f, 0.25f, 1.0f));
 	cubeActor2->getTransform().setTranslation(glm::vec3(1.0f, 1.0f, -3.0f));
 	cubeActor2->getTransform().setRotation(90.0f, glm::vec3(0.0f,1.0f,0.0f));
@@ -69,11 +67,9 @@ void E1::load()
 
 	this->loadMesh("data/meshes/small_test_scene.fbx");
 
-	vel::Actor* gridActor = testStage->addActor("gridActor");
+	vel::Actor* gridActor = testStage->addActor("gridActor", this->getMesh("Grid"), mapMaterial);
 	gridActor->setDynamic(false);
 	gridActor->setVisible(true);
-	gridActor->setMesh(this->getMesh("Grid"));
-	gridActor->setMaterial(mapMaterial);
 	gridActor->getTransform().setRotation(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	
 
@@ -87,11 +83,9 @@ void E1::load()
 
 	this->loadMesh("data/meshes/cube.fbx");
 
-	vel::Actor* cubeActor = testStage->addActor("cubeActor");
+	vel::Actor* cubeActor = testStage->addActor("cubeActor", this->getMesh("Cube"), gridMaterial);
 	cubeActor->setDynamic(false);
 	cubeActor->setVisible(true);
-	cubeActor->setMesh(this->getMesh("Cube"));
-	cubeActor->setMaterial(gridMaterial);
 	
 
 
@@ -103,11 +97,9 @@ void E1::load()
 	
 	this->loadMesh("data/meshes/low_poly_animated.fbx");
 
-	vel::Actor* lpaActor = testStage->addActor("lpaActor");
+	vel::Actor* lpaActor = testStage->addActor("lpaActor", this->getMesh("character"), lpaMat);
 	lpaActor->setDynamic(true);
 	lpaActor->setVisible(true);
-	lpaActor->setMesh(this->getMesh("character"));
-	lpaActor->setMaterial(lpaMat);
 	
 
 	vel::Armature* arm = testStage->addArmature(this->getArmature("Armature"), "walk", { "lpaActor" });
@@ -131,15 +123,11 @@ void E1::load()
 	
 	this->loadMesh("data/meshes/plane_16x9_inverted_uv_v_value.fbx");
 
-	vel::Actor* plane16x9Actor = fpTestStage->addActor("plane16x9Actor");
+	vel::Actor* plane16x9Actor = fpTestStage->addActor("plane16x9Actor", this->getMesh("plane_16x9"), fpFriendScreenMaterial);
 	plane16x9Actor->setDynamic(false);
 	plane16x9Actor->setVisible(true);
-	plane16x9Actor->setMesh(this->getMesh("plane_16x9"));
-	plane16x9Actor->setMaterial(fpFriendScreenMaterial);
 	plane16x9Actor->getTransform().setScale(glm::vec3(0.25f, 0.25f, 0.25f));
 	plane16x9Actor->getTransform().setTranslation(glm::vec3(0.9f, 0.465f, 0.0f));
-	//plane16x9Actor->getTransform().setRotation(180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	//plane16x9Actor->getTransform().appendRotation(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	
 
 	// Some sample text
