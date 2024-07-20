@@ -9,6 +9,9 @@ external/nvapi/*
 imgui.ini
 
 
+data/textures/water_caustics_grayscale/*
+
+
 data/log.txt
 hooks
 lfs

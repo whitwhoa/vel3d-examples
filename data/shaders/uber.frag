@@ -23,6 +23,11 @@ uniform vec4 color;
 	uniform vec3 ambientCube[6];
 #endif
 
+#ifdef IS_CAUSTIC
+	uniform vec4 surfaceColor;
+	uniform float causticStrength;
+#endif
+
 // one renderable can use up to 250 textures...which is overkill, but better to set it high
 // right now and scale back later if required. Each vertex of a mesh of a renderable will be
 // assigned an id which is the id of the texture which it should use, meaning that one draw
@@ -91,7 +96,13 @@ void main()
 				#ifdef RGBA_ONLY
 					vec3 calc_color = color.xyz;
 				#else
-					vec3 calc_color = texture(tex[TexId], TexCoords).rgb * color.xyz;
+					#ifdef IS_CAUSTIC
+						vec3 causticIntensity = texture(tex[TexId], TexCoords).rgb;
+						vec3 causticEffect = causticIntensity * causticStrength;
+						vec3 calc_color = (surfaceColor.xyz + causticEffect) * color.xyz;						
+					#else
+						vec3 calc_color = texture(tex[TexId], TexCoords).rgb * color.xyz;
+					#endif					
 				#endif
 				
 			#endif
@@ -102,8 +113,13 @@ void main()
 		#ifdef RGBA_ONLY
 			float alpha = color.w;
 		#else
-			//float alpha = texture(tex[TexId], TexCoords).a == 1 ? color.w : texture(tex[TexId], TexCoords).a * color.w;
-			float alpha = texture(tex[TexId], TexCoords).a * color.w;
+			#ifdef IS_CAUSTIC
+				//float alpha = surfaceColor.w; // this probably won't work since material is not set as alpha in engine
+				float alpha = color.w;
+			#else
+				//float alpha = texture(tex[TexId], TexCoords).a == 1 ? color.w : texture(tex[TexId], TexCoords).a * color.w;
+				float alpha = texture(tex[TexId], TexCoords).a * color.w;
+			#endif
 		#endif
 		
 		
