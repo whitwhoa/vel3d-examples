@@ -225,21 +225,21 @@ void E1::load()
 
 	// CUBE WITH CAUSTIC MATERIAL
 	// License of these textures does not allow sharing, so commenting this block out so it will still run for users who do not have them
-	//vel::Texture* causticTexture = this->loadTexture("causticTexture", "data/textures/water_caustics_grayscale");
+	vel::Texture* causticTexture = this->loadTexture("causticTexture", "data/textures/water_caustics_grayscale");
 
-	//vel::DiffuseCausticMaterial* causticMaterial1 = this->addDiffuseCausticMaterial("causticMaterial1");
-	//causticMaterial1->addAnimatedTexture(causticTexture, 9.0f);
-	//causticMaterial1->setSurfaceColor(glm::vec4(0.0f, 0.8f, 0.0f, 1.0f));
+	vel::DiffuseCausticMaterial* causticMaterial1 = this->addDiffuseCausticMaterial("causticMaterial1");
+	causticMaterial1->addAnimatedTexture(causticTexture, 9.0f);
+	causticMaterial1->setSurfaceColor(glm::vec4(0.0f, 0.8f, 0.0f, 1.0f));
 
-	//causticMaterial1->setCausticStrength(3.0f);
-	//causticMaterial1->setColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	causticMaterial1->setCausticStrength(3.0f);
+	causticMaterial1->setColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
-	//this->loadMesh("data/meshes/cube_1024_uv.fbx");
+	this->loadMesh("data/meshes/cube_1024_uv.fbx");
 
-	//vel::Actor* causticCubeActor = testStage->addActor("causticCubeActor", this->getMesh("Cube1024"), causticMaterial1);
-	//causticCubeActor->setDynamic(false);
-	//causticCubeActor->getTransform().setTranslation(glm::vec3(0.0f, 1.0f, 3.0f));
-	//causticCubeActor->getTransform().setScale(glm::vec3(2.0f, 2.0f, 2.0f));
+	vel::Actor* causticCubeActor = testStage->addActor("causticCubeActor", this->getMesh("Cube1024"), causticMaterial1);
+	causticCubeActor->setDynamic(false);
+	causticCubeActor->getTransform().setTranslation(glm::vec3(0.0f, 1.0f, 3.0f));
+	causticCubeActor->getTransform().setScale(glm::vec3(2.0f, 2.0f, 2.0f));
 
 
 
