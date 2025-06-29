@@ -29,15 +29,15 @@ int main()
 	conf.OPENGL_DEBUG_CONTEXT = false;
 
 	std::unique_ptr<vel::Window> w = std::make_unique<vel::Window>(conf);
-	std::unique_ptr<vel::GPU> gpu = std::make_unique<vel::GPU>();
+	std::unique_ptr<vel::GPU> gpu = std::make_unique<vel::GPU>(conf.FXAA);
 	std::unique_ptr<vel::MeshLoaderInterface> ml = std::make_unique<vel::AssimpMeshLoader>();
-	std::unique_ptr<vel::AssetManager> am = std::make_unique<vel::AssetManager>(std::move(ml), gpu.get());
+	std::unique_ptr<vel::AssetManager> am = std::make_unique<vel::AssetManager>(conf.DATA_DIR, std::move(ml), gpu.get());
 
 	// Bootstrap an App
 	std::unique_ptr<ExampleBrowser> app = std::make_unique<ExampleBrowser>(conf, w.get(), gpu.get(), am.get());
 
 	// Load Scenes into memory (multiple or just one), set one to active
-	app->addScene(std::move(std::make_unique<E1>()), true);
+	app->addScene(std::move(std::make_unique<E1>(conf.DATA_DIR)), true);
 
 	// Run the engine (blocking main thread)
 	app->execute();

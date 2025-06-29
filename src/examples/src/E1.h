@@ -10,7 +10,7 @@
 class E1 : public vel::Scene
 {
 public:
-	E1() : vel::Scene() {};
+	E1(const std::string& dataDir) : vel::Scene(dataDir) {};
 	
 	void    load();
 	void	fixedLoop(float deltaTime);

@@ -14,8 +14,6 @@ in vec2 TexCoords;
 in vec2 LMTexCoords;
 flat in uint TexId;
 
-uniform vec4 color;
-
 const int MAX_TEXTURE_SLOTS = 250;
 layout (std140, binding = 0) uniform TexturesUBO
 {
@@ -32,5 +30,5 @@ out vec4 FragColor;
 
 void main()
 {	
-	FragColor = texture(tex[TexId], TexCoords).rgba * color;
+	FragColor = texture(tex[TexId], TexCoords).rgba;
 }
