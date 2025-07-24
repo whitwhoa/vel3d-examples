@@ -29,6 +29,7 @@ void E1::load()
 	secondTestStageCamera->setFinalRenderCam(false);
 	secondTestStageCamera->setResolution(426, 240);
 
+
 	// create test stage, add multiple cameras
 	vel::Stage* testStage = this->addStage("testStage");
 	testStage->addCamera(firstTestStageCamera);
@@ -174,7 +175,8 @@ void E1::immediateLoop(float frameTime, float renderLerpInterval)
 {
 	this->fc->immediateUpdate(frameTime, renderLerpInterval);
 	
-	auto lightv = this->bt.update(frameTime);
-	//this->getStage("testStage")->getActor("gridActor")->getMaterial()->setColor(glm::vec4(lightv, 1.0f));
 
+	// Demonstrate altering color property of a material
+	// auto lightv = this->bt.update(frameTime);
+	// this->getStage("testStage")->getActor("gridActor")->getMaterial()->setColor(glm::vec4(lightv, 1.0f));
 }
