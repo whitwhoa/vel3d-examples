@@ -92,6 +92,7 @@ include(imgui)
 if(MSVC AND USE_NVIDIA_API)
 	add_subdirectory(external/nvapi)
 endif()
+include(miniaudio)
 
 
 ########################################################################
