@@ -28,6 +28,7 @@ void E1::load()
 	secondTestStageCamera->setLookAt(glm::vec3(0.0f, 1.5f, -1.0f));
 	secondTestStageCamera->setFinalRenderCam(false);
 	secondTestStageCamera->setResolution(426, 240);
+	//secondTestStageCamera->setResolution(1280, 720);
 
 
 	// create test stage, add multiple cameras
