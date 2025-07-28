@@ -10,6 +10,7 @@
 #include "vel/Log.h"
 
 #include "E1.h"
+#include "E2.h"
 
 #include "glm/gtx/string_cast.hpp"
 
@@ -37,6 +38,7 @@ int main()
 	std::unique_ptr<ExampleBrowser> app = std::make_unique<ExampleBrowser>(conf, w.get(), gpu.get(), am.get());
 
 	// Load Scenes into memory (multiple or just one), set one to active
+	app->addScene(std::move(std::make_unique<E2>(conf.DATA_DIR)));
 	app->addScene(std::move(std::make_unique<E1>(conf.DATA_DIR)), true);
 
 	// Run the engine (blocking main thread)
