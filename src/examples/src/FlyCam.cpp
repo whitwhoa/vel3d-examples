@@ -122,3 +122,13 @@ void FlyCam::updatePitchYaw()
 	if (this->pitch < -89.0f)
 		this->pitch = -89.0f;
 }
+
+glm::vec3 FlyCam::getPosition()
+{
+	return this->worldCamera->getPosition();
+}
+
+glm::vec3 FlyCam::getDirection()
+{
+	return this->lookDirection;
+}

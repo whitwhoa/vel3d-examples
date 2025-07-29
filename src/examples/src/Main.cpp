@@ -33,9 +33,12 @@ int main()
 	std::unique_ptr<vel::GPU> gpu = std::make_unique<vel::GPU>(conf.FXAA);
 	std::unique_ptr<vel::MeshLoaderInterface> ml = std::make_unique<vel::AssimpMeshLoader>();
 	std::unique_ptr<vel::AssetManager> am = std::make_unique<vel::AssetManager>(conf.DATA_DIR, std::move(ml), gpu.get());
+	std::unique_ptr<vel::AudioDevice> ad = std::make_unique<vel::AudioDevice>();
+
 
 	// Bootstrap an App
 	std::unique_ptr<ExampleBrowser> app = std::make_unique<ExampleBrowser>(conf, w.get(), gpu.get(), am.get());
+	app->setAudioDevice(ad.get());
 
 	// Load Scenes into memory (multiple or just one), set one to active
 	app->addScene(std::move(std::make_unique<E2>(conf.DATA_DIR)));

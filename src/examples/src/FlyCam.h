@@ -30,4 +30,7 @@ public:
 	void							fixedUpdate(float deltaTime);
 	void							immediateUpdate(float frameTime, float renderLerpTime);
 	void							postPhysics(float deltaTime);
+
+	glm::vec3						getPosition();
+	glm::vec3						getDirection();
 };

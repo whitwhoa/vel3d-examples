@@ -12,6 +12,16 @@
 
 #include "E1.h"
 
+E1::E1(const std::string& dataDir) :
+	isWalking(false),
+	walkingSound(nullptr),
+	bgm(nullptr),
+	canDecreaseBGMVol(true),
+	canIncreaseBGMVol(true),
+	canBark(true),
+	vel::Scene(dataDir)
+{}
+
 void E1::load()
 {
 	// create cameras
@@ -130,6 +140,7 @@ void E1::load()
 	arm->getTransform().setRotation(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 
+
 	// HUD STAGE
 	vel::Camera* fpTestStageCamera = this->addCamera("fpTestStageCamera", vel::CameraType::ORTHOGRAPHIC);
 	fpTestStageCamera->setNearPlane(-0.1f);
@@ -164,8 +175,22 @@ void E1::load()
 
 
 
-
 	this->fc = std::make_unique<FlyCam>(firstTestStageCamera, this->inputState);
+
+
+	// Uncomment this for sound. You must have associated files in ./data/sounds
+	/*
+	// Load walking sound, set position and play in logic loop
+	this->audioDevice->loadSFX("data/sounds/walking.mp3");
+
+	// Load and play bgm
+	this->audioDevice->loadBGM("data/sounds/bgm1.mp3");
+	this->audioDevice->playBGM("bgm1");
+
+	// Load bark sound
+	this->audioDevice->loadSFX("data/sounds/bark.mp3");
+	*/
+
 }
 
 
@@ -177,8 +202,48 @@ void E1::immediateLoop(float frameTime, float renderLerpInterval)
 {
 	this->fc->immediateUpdate(frameTime, renderLerpInterval);
 	
-
 	// Demonstrate altering color property of a material
 	// auto lightv = this->bt.update(frameTime);
 	// this->getStage("testStage")->getActor("gridActor")->getMaterial()->setColor(glm::vec4(lightv, 1.0f));
+
+	// Uncomment this for sound. You must have associated files in ./data/sounds
+	/*
+	this->audioDevice->setDevicePosition(this->fc->getPosition());
+	this->audioDevice->setDeviceDirection(this->fc->getDirection());
+
+	if (!this->isWalking)
+	{
+		this->walkingSound = this->audioDevice->play3DSFX("walking", glm::vec3(0.0f), false, true);
+		this->isWalking = true;
+	}
+
+	// Background music sound volume adjustment
+	if (this->inputState->keyDown && this->canDecreaseBGMVol)
+	{
+		this->canDecreaseBGMVol = false;
+		float currentVol = this->audioDevice->getBGMVolume();
+		this->audioDevice->setBGMVolume(currentVol - 0.1f);
+	}
+	if (!this->inputState->keyDown && !this->canDecreaseBGMVol)
+		this->canDecreaseBGMVol = true;
+
+	if (this->inputState->keyUp && this->canIncreaseBGMVol)
+	{
+		this->canIncreaseBGMVol = false;
+		float currentVol = this->audioDevice->getBGMVolume();
+		if(currentVol + 0.1f <= 1.0f)
+			this->audioDevice->setBGMVolume(currentVol + 0.1f);
+	}
+	if (!this->inputState->keyUp && !this->canIncreaseBGMVol)
+		this->canIncreaseBGMVol = true;
+
+	if (this->inputState->keySpace && this->canBark)
+	{
+		this->canBark = false;
+		this->audioDevice->play2DOneShotSFX("bark");
+	}
+	if (!this->inputState->keySpace && !this->canBark)
+		this->canBark = true;
+	*/
+	
 }
