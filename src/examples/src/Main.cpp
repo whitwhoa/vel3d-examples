@@ -41,8 +41,8 @@ int main()
 	app->setAudioDevice(ad.get());
 
 	// Load Scenes into memory (multiple or just one), set one to active
-	app->addScene(std::move(std::make_unique<E2>(conf.DATA_DIR)));
-	app->addScene(std::move(std::make_unique<E1>(conf.DATA_DIR)), true);
+	app->addScene(std::move(std::make_unique<E2>(conf.DATA_DIR, gpu.get())));
+	app->addScene(std::move(std::make_unique<E1>(conf.DATA_DIR, gpu.get())), true);
 
 	// Run the engine (blocking main thread)
 	app->execute();

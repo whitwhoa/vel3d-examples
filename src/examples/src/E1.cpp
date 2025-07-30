@@ -12,14 +12,14 @@
 
 #include "E1.h"
 
-E1::E1(const std::string& dataDir) :
+E1::E1(const std::string& dataDir, vel::GPU* gpu) :
 	isWalking(false),
 	walkingSound(nullptr),
 	bgm(nullptr),
 	canDecreaseBGMVol(true),
 	canIncreaseBGMVol(true),
 	canBark(true),
-	vel::Scene(dataDir)
+	vel::Scene(dataDir, gpu)
 {}
 
 void E1::load()

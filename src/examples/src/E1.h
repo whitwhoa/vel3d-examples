@@ -19,7 +19,7 @@ private:
 	bool canBark;
 
 public:
-	E1(const std::string& dataDir);
+	E1(const std::string& dataDir, vel::GPU* gpu);
 	
 	void    load();
 	void	fixedLoop(float deltaTime);
