@@ -13,6 +13,35 @@
 
 void E2::load()
 {
+	vel::Camera* bgCam = this->addCamera("bgCam", vel::CameraType::ORTHOGRAPHIC);
+	bgCam->setNearPlane(-0.1f);
+	bgCam->setFarPlane(10.0f);
+	bgCam->setFovOrScale(0.45f);
+	bgCam->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	bgCam->setLookAt(glm::vec3(0.0f, 0.0f, -1.0f));
+
+	vel::Stage* bgStage = this->addStage("bgStage");
+	bgStage->addCamera(bgCam);
+
+
+	//vel::RGBAMaterial* bgMaterial = this->addRGBAMaterial("bgMaterial");
+	//bgMaterial->setColor(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	vel::DiffuseMaterial* bgMaterial = this->addDiffuseMaterial("bgMaterial");
+	bgMaterial->addTexture(&this->e1RenderTarget->texture);
+	//bgMaterial->setColor(glm::vec4(0.25f, 0.25f, 0.25f, 1.0f));
+
+	this->loadMesh("data/meshes/plane_16x9_inverted_uv_v_value.fbx");
+
+	vel::Actor* plane16x9Actor = bgStage->addActor("plane16x9Actor", this->getMesh("plane_16x9"), bgMaterial);
+	plane16x9Actor->setDynamic(false);
+	plane16x9Actor->setVisible(true);
+	plane16x9Actor->getTransform().setScale(glm::vec3(1.0f, 1.0f, 1.0f));
+	plane16x9Actor->getTransform().setTranslation(glm::vec3(0.0f, 0.0f, 0.0f));
+
+
+
+
+
 	vel::Camera* fpTestStageCamera = this->addCamera("fpTestStageCamera", vel::CameraType::ORTHOGRAPHIC);
 	fpTestStageCamera->setNearPlane(-0.1f);
 	fpTestStageCamera->setFarPlane(10.0f);

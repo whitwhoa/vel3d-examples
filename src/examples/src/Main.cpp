@@ -40,9 +40,17 @@ int main()
 	std::unique_ptr<ExampleBrowser> app = std::make_unique<ExampleBrowser>(conf, w.get(), gpu.get(), am.get());
 	app->setAudioDevice(ad.get());
 
+
 	// Load Scenes into memory (multiple or just one), set one to active
-	app->addScene(std::move(std::make_unique<E2>(conf.DATA_DIR, gpu.get())));
-	app->addScene(std::move(std::make_unique<E1>(conf.DATA_DIR, gpu.get())), true);
+	app->addScene(std::move(std::make_unique<E1>(conf.DATA_DIR, gpu.get())));
+	E1* e1 = (E1*)app->getScene("E1");
+
+	std::unique_ptr<E2> e2 = std::make_unique<E2>(conf.DATA_DIR, gpu.get());
+	e2->e1RenderTarget = e1->getSceneRenderTarget();
+	app->addScene(std::move(e2));
+
+	app->swapScene("E1");
+
 
 	// Run the engine (blocking main thread)
 	app->execute();
