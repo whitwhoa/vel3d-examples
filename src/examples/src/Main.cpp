@@ -47,6 +47,16 @@ int main()
 
 	std::unique_ptr<E2> e2 = std::make_unique<E2>(conf.DATA_DIR, gpu.get());
 	e2->e1RenderTarget = e1->getSceneRenderTarget();
+
+	// intended only to demonstrate the the texture copy functionality works, if window resized, will break
+	e2->e1TextureCopy = gpu->generateEmptyTexture(
+		"emptyTexture1",
+		1,
+		w->getResolution().x,
+		w->getResolution().y,
+		true
+	);
+
 	app->addScene(std::move(e2));
 
 	app->swapScene("E1");

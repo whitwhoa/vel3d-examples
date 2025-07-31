@@ -23,23 +23,33 @@ void E2::load()
 	vel::Stage* bgStage = this->addStage("bgStage");
 	bgStage->addCamera(bgCam);
 
-
-	//vel::RGBAMaterial* bgMaterial = this->addRGBAMaterial("bgMaterial");
-	//bgMaterial->setColor(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-	vel::DiffuseMaterial* bgMaterial = this->addDiffuseMaterial("bgMaterial");
-	bgMaterial->addTexture(&this->e1RenderTarget->texture);
-	//bgMaterial->setColor(glm::vec4(0.25f, 0.25f, 0.25f, 1.0f));
-
 	this->loadMesh("data/meshes/plane_16x9_inverted_uv_v_value.fbx");
 
-	vel::Actor* plane16x9Actor = bgStage->addActor("plane16x9Actor", this->getMesh("plane_16x9"), bgMaterial);
+	vel::DiffuseMaterial* bgMaterialDefault = this->addDiffuseMaterial("bgMaterial");
+	bgMaterialDefault->setColor(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+
+	vel::Actor* plane16x9Actor = this->getStage("bgStage")->addActor("plane16x9Actor", this->getMesh("plane_16x9"), bgMaterialDefault);
 	plane16x9Actor->setDynamic(false);
 	plane16x9Actor->setVisible(true);
 	plane16x9Actor->getTransform().setScale(glm::vec3(1.0f, 1.0f, 1.0f));
 	plane16x9Actor->getTransform().setTranslation(glm::vec3(0.0f, 0.0f, 0.0f));
 
+	// Example of using texture from another scene's FinalRenderTarget. Prerequisite being that that
+	// scene will remain in memory for the duration of this scene's lifetime (avoids full texture copy,
+	// useful for something that will be swapped between frequently. I implemented it to be able to show
+	// one scene in a pause screen sceen)
+	vel::DiffuseMaterial* bgMaterial = this->addDiffuseMaterial("bgMaterial");
+	bgMaterial->addTexture(&this->e1RenderTarget->texture);
+	bgMaterial->setColor(glm::vec4(0.25f, 0.25f, 0.25f, 1.0f));
+	plane16x9Actor->setMaterial(bgMaterial);
 
+	// Used in copy texture example
+	vel::DiffuseMaterial* bgMaterial2 = this->addDiffuseMaterial("bgMaterial2");
+	bgMaterial2->setColor(glm::vec4(0.25f, 0.25f, 0.25f, 1.0f));
 
+	
+	
+	
 
 
 	vel::Camera* fpTestStageCamera = this->addCamera("fpTestStageCamera", vel::CameraType::ORTHOGRAPHIC);
@@ -67,3 +77,16 @@ void E2::fixedLoop(float deltaTime) {}
 
 // immediate loop
 void E2::immediateLoop(float frameTime, float renderLerpInterval) {}
+
+void E2::updateBackgroundFromCopy()
+{
+	// Example using texture that was coppied from E1 into an empty texture held by E2. This would be
+	// useful for the situation where you want to unload the previous scene in the current scene
+	// (Put this into it's own function so that it can be called when we do the scene swap since this scene
+	// is already loaded into memory and the load method has already been called)
+	
+	if(!this->e1TextureCopy)
+		this->getMaterial("bgMaterial2")->addTexture(this->e1TextureCopy.get());
+
+	
+}
