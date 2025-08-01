@@ -12,6 +12,7 @@ imgui.ini
 data/textures/water_caustics_grayscale/*
 
 data/sounds/*
+data/config.ini
 
 data/log.txt
 hooks
