@@ -178,6 +178,17 @@ void E1::load()
 	this->fc = std::make_unique<FlyCam>(firstTestStageCamera, this->inputState);
 
 
+
+	// Billboard Test
+	vel::DiffuseMaterial* billboardMaterial = this->addDiffuseMaterial("billboardMaterial", true);
+	billboardMaterial->addTexture(gridDiffuse);
+
+	vel::Billboard* billboard1 = this->addBillboard(testStage, "billboard1", billboardMaterial, firstTestStageCamera, 1.0f, 2.0f);
+	billboard1->getActor()->getTransform().setTranslation(glm::vec3(1.0f, 1.0f, 0.0f));
+	billboard1->lockXZRotation();
+
+
+
 	// Uncomment this for sound. You must have associated files in ./data/sounds
 	/*
 	// Load walking sound, set position and play in logic loop
@@ -191,6 +202,7 @@ void E1::load()
 	this->audioDevice->loadSFX("data/sounds/bark.mp3");
 	*/
 
+	
 }
 
 
