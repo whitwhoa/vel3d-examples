@@ -180,10 +180,11 @@ void E1::load()
 
 
 	// Billboard Test
-	vel::DiffuseMaterial* billboardMaterial = this->addDiffuseMaterial("billboardMaterial", true);
-	billboardMaterial->addTexture(gridDiffuse);
+	vel::Texture* billboard1_s = this->loadTexture("billboard1_s", "data/textures/billboard1/s.png");
+	vel::DiffuseMaterial* billboard1Material = this->addDiffuseMaterial("billboardMaterial", true);
+	billboard1Material->addTexture(billboard1_s);
 
-	vel::Billboard* billboard1 = this->addBillboard(testStage, "billboard1", billboardMaterial, firstTestStageCamera, 1.0f, 2.0f);
+	vel::Billboard* billboard1 = this->addBillboard(testStage, "billboard1", billboard1Material, firstTestStageCamera, 1.0f, 2.0f);
 	billboard1->getActor()->getTransform().setTranslation(glm::vec3(1.0f, 1.0f, 0.0f));
 	billboard1->lockXZRotation();
 
